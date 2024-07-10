@@ -66,8 +66,7 @@ int main() {
         sort(d.begin(), d.end());
          
         answer.push_back(d[0]);
- 
- 
+        
         tc--;
     }
  
