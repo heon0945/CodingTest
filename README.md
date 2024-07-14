@@ -1,2 +1,2 @@
 # CodingTest
-Including the materials for coding test
+Including the materials preparing for the coding test
