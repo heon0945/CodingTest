@@ -58,7 +58,6 @@ int main() {
 			}
 			else if (c == 'D') {
 				if (input.empty()) {
-					cout << "error" << '\n';
 					flag = true;
 					break;
 				}
@@ -69,45 +68,37 @@ int main() {
 			}
 		}
 
-		/*if (flag)
+		if (flag) {
 			cout << "error" << '\n';
+		}
 		else {
-			if (input.empty()) {
-				cout << "[]";
-			}
-
-			else {
-				if (!order)
-					reverse(input.begin(), input.end());
-				cout << "[";
-				for (int i = 0; i < input.size() - 1; i++) {
-					cout << input[i] << ", ";
-				}
-				cout << input[input.size() - 1] << "]" << '\n';
-			}
-		}*/
-		if (!flag) {
 			cout << '[';
-		}
-		if (!order && !input.empty()) {
-			for (auto o = input.rbegin(); o != input.rend(); o++) {
-				if (o == input.rend() - 1)
-					cout << *o;
-				else
-					cout << *o << ',';
+			if (!order)
+				reverse(input.begin(), input.end());
+			if (!input.empty()) {
+				for (int i = 0; i < input.size() - 1; i++) {
+					cout << input[i] << ",";
+				}
+				cout << input[input.size() - 1];
 			}
-		}
-		else if (order && !input.empty()) {
-			for (auto o = input.begin(); o != input.end(); o++) {
-				if (o == input.end() - 1)
-					cout << *o;
-				else
-					cout << *o << ',';
+			/*if (!order && !input.empty()) {
+				for (auto o = input.rbegin(); o != input.rend(); o++) {
+					if (o == input.rend() - 1)
+						cout << *o;
+					else
+						cout << *o << ',';
+				}
 			}
+			else if (order && !input.empty()) {
+				for (auto o = input.begin(); o != input.end(); o++) {
+					if (o == input.end() - 1)
+						cout << *o;
+					else
+						cout << *o << ',';
+				}
+			}*/
+			cout << "]" << '\n';
 		}
-		if (!flag)
-			cout << "]\n";
-
 
 	}
 
