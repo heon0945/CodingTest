@@ -73,30 +73,14 @@ int main() {
 		}
 		else {
 			cout << '[';
-			if (!order)
-				reverse(input.begin(), input.end());
 			if (!input.empty()) {
+                if (!order)
+				    reverse(input.begin(), input.end());
 				for (int i = 0; i < input.size() - 1; i++) {
 					cout << input[i] << ",";
 				}
 				cout << input[input.size() - 1];
 			}
-			/*if (!order && !input.empty()) {
-				for (auto o = input.rbegin(); o != input.rend(); o++) {
-					if (o == input.rend() - 1)
-						cout << *o;
-					else
-						cout << *o << ',';
-				}
-			}
-			else if (order && !input.empty()) {
-				for (auto o = input.begin(); o != input.end(); o++) {
-					if (o == input.end() - 1)
-						cout << *o;
-					else
-						cout << *o << ',';
-				}
-			}*/
 			cout << "]" << '\n';
 		}
 
