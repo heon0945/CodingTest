@@ -15,11 +15,11 @@ void addC(int start, int end) {
 	if (len >= n)
 		return;
 
-	char max = 'Z';
+	char min = 'Z';
 	int idx = n+1;
 	for (int i = end - 1; i >= start; i--) {
-		if (max >= str[i] && check[i] == 0) {
-			max = str[i];
+		if (min >= str[i] && check[i] == 0) {
+			min = str[i];
 			idx = i;
 		}
 	}
