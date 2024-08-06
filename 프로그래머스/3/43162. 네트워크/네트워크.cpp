@@ -19,6 +19,7 @@ int solution(int n, vector<vector<int>> computers) {
     q.push(0);
     vis[0] = 1;
     
+    
     bool end = false;
     while(!end){
         
