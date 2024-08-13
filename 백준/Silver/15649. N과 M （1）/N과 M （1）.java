@@ -10,6 +10,7 @@ public class Main {
 	
 	static int n, m;
 	static int[] output, arr, visit;
+	static StringBuilder sb = new StringBuilder();
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -24,15 +25,16 @@ public class Main {
 		}
 		
 		permu(0);
+		
+		System.out.println(sb);
 	}
 	
 	public static void permu(int order) {
 		if(order == m) {
-			StringBuilder sb = new StringBuilder();
 			for(int i = 0; i < m; i++) {
 				sb.append(output[i]).append(" ");
 			}
-			System.out.println(sb);
+			sb.append('\n');
 			return;
 		}
 		
