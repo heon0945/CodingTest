@@ -32,7 +32,6 @@ public class Solution {
 		StringBuilder sb = new StringBuilder();
 		
 		int[][] map = new int[100][100]; 
-		int[][] visit = new int[100][100];
 		int[] dx = {0, 0, -1};
 		int[] dy = {-1, 1, 0};
 		
@@ -60,14 +59,13 @@ public class Solution {
 			//initialize visit
 			for(int i = 0; i < 100; i++) {
 				for(int j = 0; j < 100; j++) {
-					visit[i][j] = 0;
 				}
 			}
 			
 			//search exit
 			int curx = start.first;
 			int cury = start.second;
-			visit[curx][cury] = 1;
+			int curdir = 0;
 			while(true) {
 				
 				if(curx == 0) {
@@ -76,13 +74,18 @@ public class Solution {
 				}
 				
 				for(int i = 0; i < 3; i++) {
+					if(curdir == 0 && i == 1)
+						continue;
+					if(curdir == 1 && i == 0)
+						continue;
+					
 					int tmpx = curx + dx[i];
 					int tmpy = cury + dy[i];
 					
-					if(!OOB(tmpx, tmpy) && visit[tmpx][tmpy] == 0 && map[tmpx][tmpy] == 1) {
+					if(!OOB(tmpx, tmpy) && map[tmpx][tmpy] == 1) {
 						curx = tmpx;
 						cury = tmpy;
-						visit[curx][cury] = 1;
+						curdir = i;
 						break;
 					}
 					
