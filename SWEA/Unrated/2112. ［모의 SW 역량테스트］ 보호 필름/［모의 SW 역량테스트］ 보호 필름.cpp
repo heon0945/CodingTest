@@ -28,6 +28,7 @@ bool check(int board[14][21]) {
 
 		if (cnt > mx)
 			mx = cnt;
+
 		if (mx < k) {
 			return false;
 		}
@@ -37,7 +38,10 @@ bool check(int board[14][21]) {
 
 
 void permu(int cur, int chem) {
+
+	//수열 완성된 경우
 	if (cur == d) {
+		//보호 필름 수열 따라 약물 시행
 		for (int i = 0; i < d; i++) {
 			if (output[i] != -1) {
 				for (int j = 0; j < w; j++) {
@@ -51,7 +55,7 @@ void permu(int cur, int chem) {
 			}
 		}
 
-
+		//해당 필름이 기준 합격인지 판단
 		if (check(modify)) {
 			if (answer > chem)
 				answer = chem;
@@ -59,10 +63,11 @@ void permu(int cur, int chem) {
 		return;
 	}
 
+	//수열 만들기
 	for (int i = 0; i < 3; i++) {
 		output[cur] = status[i];
 		if (output[cur] != -1) { //약품 주입한 경우
-			if(answer > chem + 1)
+			if(answer > chem + 1) //가지치기
 				permu(cur + 1, chem + 1);
 		}
 		else { //약품 주입하지 않은 경우
