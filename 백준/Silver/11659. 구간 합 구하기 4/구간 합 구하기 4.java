@@ -1,8 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+//236340kb, 908ms
+ 
 public class Main {
-
 	
 	static int n, m;
 	static int[] arr;
@@ -15,10 +16,10 @@ public class Main {
 		n = scanner.nextInt();
 		m = scanner.nextInt();
 		
-		arr = new int[n];
-		tot = new int[n];
+		arr = new int[n + 1];
+		tot = new int[n + 1];
 		int total = 0;
-		for(int i = 0; i < n; i++) {
+		for(int i = 1; i < n + 1; i++) {
 			arr[i] = scanner.nextInt();
 			total += arr[i];
 			tot[i] = total;
@@ -29,11 +30,7 @@ public class Main {
 			a = scanner.nextInt();
 			b = scanner.nextInt();
 			
-			if(a - 2 < 0) {
-				sb.append(tot[b-1]).append('\n');
-			}
-			else
-				sb.append(tot[b-1] - tot[a-2]).append('\n');
+			sb.append(tot[b] - tot[a-1]).append('\n');
 		}
 		System.out.print(sb);
 		
