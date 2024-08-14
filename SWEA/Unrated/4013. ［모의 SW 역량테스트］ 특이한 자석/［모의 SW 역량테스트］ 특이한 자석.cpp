@@ -11,22 +11,22 @@ int rot[4], visit[4];
 
 
 
-//void rotation(int* arr, int dir) {
-//	if (dir == 1) {
-//		int tmp = arr[7];
-//		for (int i = 7; i > 0; i--) {
-//			arr[i] = arr[i - 1];
-//		}
-//		arr[0] = arr[7];
-//	}
-//	else if (dir == -1) {
-//		int tmp = arr[0];
-//		for (int i = 0; i < 7; i++) {
-//			arr[i] = arr[i + 1];
-//		}
-//		arr[7] = arr[0];
-//	}
-//}
+void rotation(int* arr, int dir) {
+	if (dir == 1) {
+		int tmp = arr[7];
+		for (int i = 7; i > 0; i--) {
+			arr[i] = arr[i - 1];
+		}
+		arr[0] = tmp;
+	}
+	else if (dir == -1) {
+		int tmp = arr[0];
+		for (int i = 0; i < 7; i++) {
+			arr[i] = arr[i + 1];
+		}
+		arr[7] = tmp;
+	}
+}
 
 
 int main() {
@@ -96,7 +96,8 @@ int main() {
 
 			//회전정보따라 회전
 			for (int i = 0; i < 4; i++) {
-				if (rot[i] == 1) {
+				rotation(mag[i], rot[i]);
+				/*if (rot[i] == 1) {
 					int tmp = mag[i][7];
 					for (int j = 7; j > 0; j--) {
 						mag[i][j] = mag[i][j - 1];
@@ -109,7 +110,7 @@ int main() {
 						mag[i][j] = mag[i][j + 1];
 					}
 					mag[i][7] = tmp;
-				}
+				}*/
 			}
 		}
 
