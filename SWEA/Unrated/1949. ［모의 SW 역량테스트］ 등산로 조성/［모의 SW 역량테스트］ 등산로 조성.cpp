@@ -9,14 +9,14 @@ struct Node {
 	int x;
 	int y;
 	int h;
-	int len;
 
-	Node(int t_x, int t_y, int t_h, int t_len) : x(t_x), y(t_y), h(t_h), len(t_len) {}
+	Node(int t_x, int t_y, int t_h) : x(t_x), y(t_y), h(t_h) {}
 };
 
 
 int t, n, k;
 int map[8][8];
+bool visit[8][8];
 int dx[4] = { -1, 1, 0, 0 };
 int dy[4] = { 0, 0, -1, 1 };
 int answer;
@@ -30,45 +30,43 @@ bool OOB(int x, int y) {
 	return true;
 }
 
-int findRoad() {
-	int mx = 0;
-	for (int p = 0; p < pole.size(); p++) {
-		//bfs
-		queue<Node> q;
-		q.push(pole[p]);
+void findRoad(Node pole, int len, int cut) {
+
+	answer = max(answer, len);
+	
+	for (int i = 0; i < 4; i++) {
+		int tx = pole.x + dx[i];
+		int ty = pole.y + dy[i];
+
+		if (!OOB(tx, ty) && !visit[tx][ty]) {
 
 
-		while (!q.empty()) {
-			Node cur = q.front();
-			q.pop();
+			if (pole.h > map[tx][ty]) {
+				visit[tx][ty] = true;
+				findRoad(Node(tx, ty, map[tx][ty]), len + 1, cut);
+				visit[tx][ty] = false;
+			}
 
-			int nx = cur.x;
-			int ny = cur.y;
-			int nh = cur.h;
-			int nlen = cur.len;
-
-			int cnt = 0;
-			for (int i = 0; i < 4; i++) {
-				int tx = nx + dx[i];
-				int ty = ny + dy[i];
-
-				if (!OOB(tx, ty) && map[tx][ty] < nh) {
-					q.push(Node(tx, ty, map[tx][ty], nlen + 1));
-					cnt++;
-					continue;
-				}
-
-				if (i == 3 && cnt == 0) {
-					//route가 끝나는 지점
-					mx = max(mx, nlen);
+			else {
+				if (cut == 0) {
+					int tmp = map[tx][ty];
+					for (int j = 1; j <= k; j++) {
+						map[tx][ty] = --map[tx][ty];
+						if (pole.h > map[tx][ty]) {
+							visit[tx][ty] = true;
+							findRoad(Node(tx, ty, map[tx][ty]), len + 1, cut+1);
+							visit[tx][ty] = false;
+							break;
+						}
+					}
+					map[tx][ty] = tmp;
 				}
 
 			}
 
+
 		}
 	}
-
-	return mx;
 }
 
 int main() {
@@ -83,6 +81,11 @@ int main() {
 		//initialization
 		answer = 0;
 		pole.clear();
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				visit[i][j] = false;
+			}
+		}
 
 		//get input
 		cin >> n >> k;
@@ -97,45 +100,16 @@ int main() {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (map[i][j] == tmp)
-					pole.push_back(Node(i, j, tmp, 1));
-			}
-		}
-
-		//original status
-		answer = findRoad();
-
-
-		//cutting height
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				//select cutting spot : map[i][j]
-
-				int curpole = -1;
-				for (int p = 0; p < pole.size(); p++) {
-					if (i == pole[p].x && j == pole[p].y) {
-						curpole = p;
-						break;
-					}
-				}
-
-
-				int ori = map[i][j];
-				for (int cut = 1; cut <= k; cut++) {
-					map[i][j]--;
-					if (curpole != -1) {
-						pole[curpole].h = map[i][j];
-					}
-					answer = max(answer, findRoad());
-				}
-				map[i][j] = ori;
-				if (curpole != -1) {
-					pole[curpole].h = map[i][j];
-				}
-
+					pole.push_back(Node(i, j, tmp));
 			}
 		}
 
 
+		for (int p = 0; p < pole.size(); p++) {
+			visit[pole[p].x][pole[p].y] = true;
+			findRoad(pole[p], 1, 0);
+			visit[pole[p].x][pole[p].y] = false;
+		}
 
 		cout << "#" << tc << " " << answer << '\n';
 	}
