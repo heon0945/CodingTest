@@ -28,9 +28,6 @@ public class Main {
 				// j : 현재 가능한 무게
 				dp[i][j] = dp[i-1][j];
 				if(w[i] <= j) {
-					dp[i][j] = Math.max(dp[i][j], v[i]);
-				}
-				if(j - w[i] >= 0) {
 					dp[i][j] = Math.max(dp[i][j], dp[i-1][j-w[i]] + v[i]);
 				}
 			}
