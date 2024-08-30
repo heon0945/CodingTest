@@ -2,9 +2,11 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	// 카메라의 각 방향 별로 조합 구하기 -> 4^8
-	// 정해진 조합대로 맵에 볼 수 있는 구역 표시
-	// 사각지대 개수 세기
+	// 입력 받으면서 카메라 리스트 만들기
+		// 카메라 클래스 : 위치 정보, 카메라 타입 정보
+	// 카메라 리스트 dfs로 순회하면서 해당 카메라의 방향 정해주기 -> 부분집합
+	// 카메라 리스트 순회하면서 정해진 카메라 방향을 기반으로 확인 가능한 방향 맵에 표시하기
+	// 전체 맵에서 사각지대 개수 세고 출력하기
 	
 	static int n, m;
 	static int map[][];
@@ -43,14 +45,14 @@ public class Main {
 		}
 		dir = new int[cams.size()];
 		
-		dircombi(0);
+		dircombi(0); // 카메라의 방향 정해주기
 		
 		System.out.println(answer);
 	}
 	
 	static void dircombi(int order) {
 		if(order == cams.size()) {
-			answer = Math.min(answer, calc());
+			answer = Math.min(answer, calc()); // 사각지대 구하기
 			return;
 		}
 		
@@ -85,92 +87,35 @@ public class Main {
 			int tx = cur.x;
 			int ty = cur.y;
 			int type = cur.type;
-			int dirx = 0, diry = 0;
-			switch(type) {
-				case 0 :
-					dirx = dx[dir[i]];
-					diry = dy[dir[i]];
-					while(true) {
-						tx += dirx;
-						ty += diry;
-						
-						if(OOB(tx, ty)) break;
-						if(map[tx][ty] == 6) break;
-						if(map[tx][ty] > 0) continue;
-						map[tx][ty] = -1;
-					}					
-					break;
-				case 1 : 
-					for(int t = 0; t < 2; t++) {
-						tx = cur.x; ty = cur.y;
-						dirx = dx[(dir[i] + t * 2) % 4];
-						diry = dy[(dir[i] + t * 2) % 4];
-						while(true) {
-							tx += dirx;
-							ty += diry;
-							
-							if(OOB(tx, ty)) break;
-							if(map[tx][ty] == 6) break;
-							if(map[tx][ty] > 0) continue;
-							map[tx][ty] = -1;
-						}		
-					}
-					break;
-				case 2 : 
-					for(int t = 0; t < 2; t++) {
-						tx = cur.x; ty = cur.y;
-						dirx = dx[(dir[i] + t) % 4];
-						diry = dy[(dir[i] + t) % 4];
-						while(true) {
-							tx += dirx;
-							ty += diry;
-							
-							if(OOB(tx, ty)) break;
-							if(map[tx][ty] == 6) break;
-							if(map[tx][ty] > 0) continue;
-							map[tx][ty] = -1;
-						}		
-					}
-					break;
-				case 3 :
-					for(int t = 0; t < 3; t++) {
-						tx = cur.x; ty = cur.y;
-						dirx = dx[(dir[i] + t) % 4];
-						diry = dy[(dir[i] + t) % 4];
-						while(true) {
-							tx += dirx;
-							ty += diry;
-							
-							if(OOB(tx, ty)) break;
-							if(map[tx][ty] == 6) break;
-							if(map[tx][ty] > 0) continue;
-							map[tx][ty] = -1;
-						}		
-					}
-					break;
-				case 4 :
-					
-					for(int t = 0; t < 4; t++) {
-						tx = cur.x; ty = cur.y;
-						dirx = dx[t]; diry = dy[t];
-						while(true) {
-							tx += dirx;
-							ty += diry;
-							
-							if(OOB(tx, ty)) break;
-							if(map[tx][ty] == 6) break;
-							if(map[tx][ty] > 0) continue;
-							map[tx][ty] = -1;
-						}		
-					}
-					
-					break;
-				default :
-					break;
+			int dirx, diry;
 			
+			// 카메라로 확인 가능한 방향 표시
+			int recur = type;
+			if(type == 0) recur = 1;
+			else if(type == 1) recur = 2;
+			for(int t = 0; t < recur; t++) {
+				tx = cur.x; ty = cur.y;
+				if(type == 1) {
+					dirx = dx[(dir[i] + t * 2) % 4];
+					diry = dy[(dir[i] + t * 2) % 4];
+				}
+				else{
+					dirx = dx[(dir[i] + t) % 4];				
+					diry = dy[(dir[i] + t) % 4];
+				}
+				while(true) {
+					tx += dirx;
+					ty += diry;
+					
+					if(OOB(tx, ty)) break;
+					if(map[tx][ty] == 6) break;
+					if(map[tx][ty] > 0) continue;
+					map[tx][ty] = -1;
+				}		
 			}
 		}
 		
+		// 사각지대 개수 세기
 		int cnt = 0;
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
@@ -178,6 +123,7 @@ public class Main {
 			}
 		}
 		
+		// 맵 상에서 사각지대 부분 다시 원복
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
 				if(map[i][j] == -1) map[i][j] = 0;
