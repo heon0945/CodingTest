@@ -3,93 +3,92 @@ import java.io.*;
 
 public class Solution {
 
-	
 	static int tc;
 	static int V, E;
-	static Edge edges[];
-	static int parents[];
+	static Node adj[];
+	static int minEdge[];
+	static boolean visited[];
+	static PriorityQueue<Vertex> pq;
 	
-	static class Edge implements Comparable<Edge>{
-		int start;
-		int end;
+	
+	static class Node{
+		int to;
+		Node next;
 		int weight;
-		public Edge(int start, int end, int weight) {
+		public Node(int to, Node next, int weight) {
 			super();
-			this.start = start;
-			this.end = end;
+			this.to = to;
+			this.next = next;
 			this.weight = weight;
 		}
-		
-		@Override
-		public int compareTo(Edge o) {
-			return Integer.compare(this.weight, o.weight);
+	}
+	
+	static class Vertex{ // pq에 저장할 때 사용
+		int num;
+		int w;
+		public Vertex(int num, int w) {
+			super();
+			this.num = num;
+			this.w = w;
 		}
 	}
-	
-	static void make() {
-		parents = new int[V];
-		for(int i = 0; i < V; i++) {
-			parents[i] = -1;
-		}
-	}
-	static int find(int a) {
-		if(parents[a] < 0)
-			return a;
-		return parents[a] = find(parents[a]);
-	}
-	
-	static boolean union(int a, int b) {
-		int aRoot = find(a);
-		int bRoot = find(b);
-		
-		if(aRoot == bRoot)
-			return false;
-		
-		parents[bRoot] = aRoot;
-		return true;
-	}
-	
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		StringBuilder sb = new StringBuilder();
-		
 		tc = sc.nextInt();
 		
 		for(int t = 1; t <= tc; t++) {
 			sb.append("#").append(t).append(" ");
 			
-			
 			V = sc.nextInt();
 			E = sc.nextInt();
-			edges = new Edge[E];
+			adj = new Node[V];
 			
 			for(int i = 0; i < E; i++) {
-				edges[i] = new Edge(sc.nextInt() - 1, sc.nextInt() - 1, sc.nextInt());
+				int e1 = sc.nextInt()-1;
+				int e2 = sc.nextInt()-1;
+				int weight = sc.nextInt();
+				adj[e1] = new Node(e2, adj[e1], weight);
+				adj[e2] = new Node(e1, adj[e2], weight);
 			}
 			
-			make();
+			pq = new PriorityQueue<Vertex>((e1, e2) -> e1.w - e2.w);
+			visited = new boolean[V];
+			int minVertex = 0;
+			long cost = 0;
+			int cnt = 0;
+			pq.add(new Vertex(0, 0));
 			
-			Arrays.sort(edges);
-			
-			long cnt = 0, cost = 0;
-			
-			for(int i = 0; i < E; i++) {
+			while(!pq.isEmpty()) {
 				
-				if(cnt == V-1)
-					break;
+				Vertex cur = pq.poll();
 				
-				Edge cur = edges[i];
 				
-				if(!union(cur.start, cur.end)) continue;
+				if(visited[cur.num]) continue;
+				
+				cost += cur.w;
 				cnt++;
-				cost += cur.weight;
+				visited[cur.num] = true;
+				
+				if(cnt == V) break;
+				
+				
+				//step2 : minEdge 업데이트
+				Node n = adj[cur.num];
+				while(n != null) {
+					if(visited[n.to]) {
+						n = n.next;
+						continue;
+					}
+					pq.add(new Vertex(n.to, n.weight));
+					n = n.next;
+				}
+				
 			}
-			
 			sb.append(cost).append('\n');
-			
 		}
-		System.out.print(sb);
+		System.out.println(sb);
 		
 	}
 }
