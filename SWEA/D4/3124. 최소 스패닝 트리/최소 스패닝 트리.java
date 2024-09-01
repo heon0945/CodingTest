@@ -33,29 +33,31 @@ public class Solution {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		tc = sc.nextInt();
+		tc = Integer.parseInt(br.readLine());
 		
 		for(int t = 1; t <= tc; t++) {
 			sb.append("#").append(t).append(" ");
-			
-			V = sc.nextInt();
-			E = sc.nextInt();
+			StringTokenizer st = new StringTokenizer(br.readLine());
+
+			V = Integer.parseInt(st.nextToken());
+			E = Integer.parseInt(st.nextToken());
+
 			adj = new Node[V];
 			
 			for(int i = 0; i < E; i++) {
-				int e1 = sc.nextInt()-1;
-				int e2 = sc.nextInt()-1;
-				int weight = sc.nextInt();
+				st = new StringTokenizer(br.readLine());
+				int e1 = Integer.parseInt(st.nextToken())-1;
+				int e2 = Integer.parseInt(st.nextToken())-1;
+				int weight = Integer.parseInt(st.nextToken());
 				adj[e1] = new Node(e2, adj[e1], weight);
 				adj[e2] = new Node(e1, adj[e2], weight);
 			}
 			
 			pq = new PriorityQueue<Vertex>((e1, e2) -> e1.w - e2.w);
 			visited = new boolean[V];
-			int minVertex = 0;
 			long cost = 0;
 			int cnt = 0;
 			pq.add(new Vertex(0, 0));
@@ -68,11 +70,9 @@ public class Solution {
 				if(visited[cur.num]) continue;
 				
 				cost += cur.w;
-				cnt++;
 				visited[cur.num] = true;
-				
+				cnt++;
 				if(cnt == V) break;
-				
 				
 				//step2 : minEdge 업데이트
 				Node n = adj[cur.num];
