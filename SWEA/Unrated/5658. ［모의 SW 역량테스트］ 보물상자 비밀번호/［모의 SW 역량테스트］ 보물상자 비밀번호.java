@@ -33,10 +33,10 @@ public class Solution {
 				// 숫자 구하기
 				makeNum(i, snum);
 				char[] tmp = new char[n];
-				tmp[0] = snum[n - 1];
-				for (int j = 1; j < n; j++) {
-					tmp[j] = snum[j - 1];
+				for (int j = 0; j < n-1; j++) {
+					tmp[j] = snum[j + 1];
 				}
+				tmp[n-1] = snum[0];
 				snum = tmp;
 			}
 			Arrays.sort(nums, Collections.reverseOrder());
