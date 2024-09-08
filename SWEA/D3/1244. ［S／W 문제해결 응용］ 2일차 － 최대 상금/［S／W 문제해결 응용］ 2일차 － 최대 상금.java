@@ -39,7 +39,7 @@ public class Solution {
 	static int getInt(char[] chars) {
 		int num = 0;
 		for(int i = 0; i < size; i++) {
-			num += (chars[size-1-i] - '0') * Math.pow(10, i);
+			num = num * 10 + (chars[i] - '0');
 		}
 		return num;
 	}
