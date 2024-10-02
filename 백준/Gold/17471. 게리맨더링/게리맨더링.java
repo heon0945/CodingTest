@@ -1,110 +1,101 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-	
+
 	static int n;
 	static int population[];
-	static boolean adjMat[][];
-	static boolean select[];
-	static ArrayList<Integer> inA, inB;
+	static boolean isA[];
+	static boolean city[][];
 	static int answer;
-	static int total;
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
 		n = sc.nextInt();
-		population = new int[n+1];
-		adjMat = new boolean[n+1][n+1];
-		select = new boolean[n+1];
+		population = new int[n];
+		isA = new boolean[n];
+		city = new boolean[n][n];
 		
-		for(int i = 1; i <= n; i++) {
+		for(int i = 0; i < n; i++) {
 			population[i] = sc.nextInt();
-			total += population[i];
 		}
-		answer = total;
 		
-		for(int i = 1; i <= n; i++) {
+		for(int i = 0; i < n; i++) {
 			int size = sc.nextInt();
 			for(int j = 0; j < size; j++) {
-				int next = sc.nextInt();
-				adjMat[i][next] = true;
-				adjMat[next][i] = true;
+				city[i][sc.nextInt()-1] = true;
 			}
 		}
 		
-		// 구역 나누기
-		separating(1);
+		answer = Integer.MAX_VALUE;
+		//선거구 나누기 : 부분집합
+		separating(0);
 		
-		// 정답 출력
-		if(answer == total)
-			System.out.println(-1);
-		else
-			System.out.println(answer);
+		if(answer == Integer.MAX_VALUE) System.out.println(-1);
+		else System.out.println(answer);
 	}
 	
-	static boolean connecting(ArrayList<Integer> list, boolean flag) {
-		boolean visit[] = new boolean [n+1];
+	static boolean isConnected(List<Integer> list, boolean flag) {
+		int size = list.size();
+		Queue<Integer> q = new ArrayDeque<Integer>();
+		boolean visit[] = new boolean[n];
 		
-		Queue<Integer> q = new ArrayDeque<>();
-		q.add(list.get(0));
-		visit[list.get(0)] = true;
+		int cnt = 0;
+		int first = list.get(0);
+		visit[first] = true;
+		q.add(first);
+		cnt++;
 		
 		while(!q.isEmpty()) {
-			
 			int cur = q.poll();
 			
-			for(int i = 1; i <= n; i++) {
-				
-				if(!adjMat[cur][i]) continue;
+			for(int i = 0; i < n; i++) {
 				if(visit[i]) continue;
-				if(select[i] != flag) continue;
-				visit[i] = true;
-				q.add(i);
+				
+				if(city[cur][i] && isA[i] == flag) {
+					q.add(i);
+					visit[i] = true;
+					cnt++;
+				}
 			}
 		}
 		
-		
-		for(int i = 0; i < list.size(); i++) {
-			if(!visit[list.get(i)]) return false;
-		}
-		return true;
-		
+		if(size == cnt) return true;
+		else return false;
 	}
 	
 	static void separating(int order) {
-		if(order == n+1) {
-			inA = new ArrayList<>();
-			inB = new ArrayList<>();
-			
-			for(int i = 1; i <= n; i++) {
-				if(select[i]) inA.add(i);
-				else inB.add(i);
+		if(order == n) {
+			List<Integer> A = new ArrayList<>();
+			List<Integer> B = new ArrayList<>();
+			int popA = 0, popB = 0;
+			//A와 B 구분
+			for(int i = 0; i < n; i++) {
+				if(isA[i]) {
+					A.add(i);
+					popA += population[i];
+				}
+				else {
+					B.add(i);
+					popB += population[i];
+				}
 			}
 			
-			//적어도 하나 포함
-			if(inA.size() == 0 || inB.size() == 0) return;
-			//모두 연결
-			if(!connecting(inA, true) || !connecting(inB, false)) return;
+			//하나 이상인지 확인
+			if(A.isEmpty() || B.isEmpty()) return;
+
+			//연결되었는지 확인
+			if(!isConnected(A, true) || !isConnected(B, false)) return;
 			
-			int ap = 0, bp = 0;
-			for(int i = 0; i < inA.size(); i++) {
-				ap += population[inA.get(i)];
-			}
-			bp = total - ap;
-			
-			answer = Math.min(answer, Math.abs(ap-bp));
-			
-			
+			answer = Math.min(answer, Math.abs(popA-popB));
 			return;
 		}
 		
-		select[order] = true;
+		isA[order] = true;
 		separating(order + 1);
-		select[order] = false;
+		isA[order] = false;
 		separating(order + 1);
-		
 		
 	}
 }
