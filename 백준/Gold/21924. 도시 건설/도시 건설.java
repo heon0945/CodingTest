@@ -1,93 +1,90 @@
-import java.io.*;
-import java.util.*;
+import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class Main {
 
-	static int n, m;
-	static Edge[] edges;
-	static int[] parents;
-	
-	
-	static class Edge implements Comparable<Edge>{
-		int start, end;
-		int weight;
-		public Edge(int start, int end, int weight) {
-			super();
-			this.start = start;
-			this.end = end;
-			this.weight = weight;
-		}
-		@Override
-		public int compareTo(Edge o) {
-			// TODO Auto-generated method stub
-			return this.weight-o.weight;
-		}
-		
-	}
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		n = sc.nextInt();
-		m = sc.nextInt();
-		
-		edges = new Edge[m];
-		
-		long total = 0;
-		for(int i = 0; i < m; i++) {
-			int s = sc.nextInt()-1;
-			int e = sc.nextInt()-1;
-			int c = sc.nextInt();
-			edges[i] = new Edge(s, e, c);
-			total += c;
-		}
-		
-		Arrays.sort(edges);
-		
-		make();
-		int cnt = 0;
-		long cost = 0;
-		
-		for(int i = 0; i < m; i++) {
-			
-			if(cnt == n-1)
-				break;
-			
-			Edge cur = edges[i];
-			
-			if(!union(cur.start, cur.end)) continue;
-			
-			cnt++;
-			cost += cur.weight;
-		}
-		
-		if(cnt != n-1)
-			System.out.println(-1);
-		else
-			System.out.println(total-cost);
-	}
-	
-	static void make() {
-		parents = new int[n];
-		for(int i = 0; i < n; i++) {
-			parents[i] = -1;
-		}
-	}
-	
-	static int find(int a) {
-		if(parents[a] < 0)
-			return a;
-		return parents[a] = find(parents[a]);
-	}
-	
-	static boolean union(int a, int b) { 
-		int aRoot = find(a);
-		int bRoot = find(b);
-		
-		if(aRoot == bRoot) return false;
-		
-		parents[aRoot] += parents[bRoot];
-		parents[bRoot] = aRoot;
-		return true;
-	}
+    public static class Edge implements Comparable<Edge>{
+        int start;
+        int end;
+        int weight;
+
+        public Edge(int start, int end, int weight) {
+            this.start = start;
+            this.end = end;
+            this.weight = weight;
+        }
+
+
+        @Override
+        public int compareTo(Edge o) {
+            return this.weight-o.weight;
+        }
+    }
+
+    public static int N, M;
+    public static long totalSpent;
+
+    public static int parents[];
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        N = sc.nextInt();
+        M = sc.nextInt();
+        parents = new int[N];
+
+        for(int i = 0; i < N; i++) parents[i] = -1;
+
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+
+        for(int i = 0; i < M; i++){
+            int start = sc.nextInt()-1;
+            int end = sc.nextInt()-1;
+            int weight = sc.nextInt();
+            pq.add(new Edge(start, end, weight));
+            totalSpent += weight;
+        }
+
+        int cnt = 0; //edge 개수
+        long minSpent = 0;
+        while(!pq.isEmpty()){
+            if(cnt >= N-1){
+                break;
+            }
+
+            Edge cur = pq.poll();
+
+            if(!union(cur.start, cur.end)) continue;
+
+            cnt++;
+            minSpent += cur.weight;
+        }
+
+        if(cnt < N-1){
+            System.out.println(-1);
+            return;
+        }
+
+        System.out.println(totalSpent-minSpent);
+    }
+
+    public static int find(int a){
+        if(parents[a] < 0) return a;
+
+
+        return parents[a] = find(parents[a]);
+
+    }
+
+    public static boolean union(int a, int b){
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if(rootA == rootB) return false;
+
+        parents[rootA] = rootB;
+
+        return true;
+    }
+
 }
