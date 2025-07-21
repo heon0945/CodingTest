@@ -4,118 +4,91 @@ import java.util.*;
 public class Main {
 
     static int n;
-    static List<Edge> tmp;
-    static Edge[] edges;
-    static int[] parents;
+    static int graph[][];
+    static int minEdge[];
+    static boolean visited[];
+
     static int total;
 
-    public static class Edge implements Comparable<Edge>{
-        int start, end;
+    public static class Vertex implements Comparable<Vertex>{
+        int num;
         int weight;
-        public Edge(int start, int end, int weight){
-            this.start = start;
-            this.end = end;
+
+        public Vertex(int num, int weight){
+            this.num = num;
             this.weight = weight;
         }
 
-        public int compareTo(Edge o){
+        public int compareTo(Vertex o){
             return this.weight - o.weight;
         }
-    }
-
-    public static void make(){
-        parents = new int[n];
-
-        for(int i = 0; i < n; i++){
-            parents[i] = -1;
-        }
-    }
-
-    public static int find(int a){
-        if(parents[a] < 0) return a;
-
-        return parents[a] = find(parents[a]);
-    }
-
-    public static boolean union(int a, int b){
-
-        int rootA = find(a);
-        int rootB = find(b);
-
-        if(rootA == rootB) return false;
-
-        if(parents[rootA] < parents[rootB]){
-            parents[rootA] += parents[rootB];
-            parents[rootB] = rootA;
-        }
-        else{
-            parents[rootB] += parents[rootA];
-            parents[rootA] = rootB;
-        }
-
-        return true;
 
     }
+
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
+        graph = new int[n][n];
 
-        tmp = new ArrayList<>();
+        minEdge = new int[n];
+        visited = new boolean[n];
 
         for(int i = 0; i < n; i++){
+
             String str = br.readLine();
 
             for(int j = 0; j < n; j++){
+
                 char c = str.charAt(j);
 
+                int weight;
                 if(c == '0') continue;
+                else if( c < 'a') weight = c - 'A' + 27;
+                else weight = c - 'a' + 1;
 
-                int weight = 0;
-                if(c < 'a')
-                    weight = c - 'A' + 27;
-                else
-                    weight = c - 'a' + 1;
                 total += weight;
 
-                tmp.add(new Edge(i, j, weight));
-                tmp.add(new Edge(j, i, weight));
-            }
-        }
+                if(graph[i][j] == 0) graph[i][j] = weight;
+                else graph[i][j] = Math.min(graph[i][j], weight);
 
-        Collections.sort(tmp);
-
-        edges = new Edge[tmp.size()];
-
-        for(int i = 0; i < tmp.size(); i++){
-            edges[i] = tmp.get(i);
-        }
-
-        //union find 시작
-        make();
-
-        //크루스칼 알고리즘 (MST)
-        int cnt = 0; // 현재 선택된 간선 수
-        int cost = 0; // 최소 비용
-
-        for(int i = 0; i < edges.length; i++){
-            if(cnt >= n-1) break;
-
-            Edge cur = edges[i];
-
-            //만약 아직 선택되지 않은 간선이라면 포함
-            if(union(cur.start, cur.end)){
-                cnt++;
-                cost += cur.weight;
+                if(graph[j][i] == 0) graph[j][i] = weight;
+                else graph[j][i] = Math.min(graph[j][i], weight);
             }
         }
 
 
-        if(cnt == n-1)
+        PriorityQueue<Vertex> pq = new PriorityQueue<>();
+        int cnt = 0;
+        int cost = 0;
+
+        pq.add(new Vertex(0, 0)); // 현재 노드, 현재까지 진행된 길이
+
+        while(!pq.isEmpty() && cnt != n){
+
+            Vertex cur = pq.poll();
+
+            if(visited[cur.num]) continue;
+
+            cost += cur.weight;
+            cnt++;
+            visited[cur.num] = true;
+
+            for(int i = 0; i < n; i++){
+                if(visited[i]) continue;
+                if(graph[cur.num][i] <= 0) continue;
+                pq.add(new Vertex(i, graph[cur.num][i]));
+            }
+
+        }
+
+        if(cnt == n)
             System.out.println(total - cost);
         else
             System.out.println(-1);
 
     }
+
 }
