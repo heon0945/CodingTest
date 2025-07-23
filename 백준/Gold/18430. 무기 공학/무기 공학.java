@@ -1,5 +1,7 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -8,18 +10,8 @@ public class Main {
     static int map[][];
     static boolean visited[][];
 
-    static int[][] boom; //부메랑에 포함된 칸
-
     static int[][] dx = {{0, 0, 1}, {-1, 0, 0}, {-1, 0, 0}, {0, 0, 1}};
     static int[][] dy = {{-1, 0, 0}, {0, 0, -1}, {0, 0, 1}, {1, 0, 0}};
-
-    public static class Pair{
-        int x, y;
-        public Pair(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
-    }
 
 
     public static void main(String[] args) throws IOException {
@@ -33,8 +25,6 @@ public class Main {
         map = new int[n][m];
         visited = new boolean[n][m];
 
-        boom = new int[12][3];
-
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
             for(int j = 0; j < m; j++){
@@ -42,17 +32,13 @@ public class Main {
             }
         }
 
-        dfs(0, 0, -1);
-        dfs(0, 0, 0);
-        dfs(0, 0, 1);
-        dfs(0, 0, 2);
-        dfs(0, 0, 3);
+        dfs(0, 0);
 
 
         System.out.println(ans);
     }
 
-    static void dfs(int cur, int strength, int shape){
+    static void dfs(int cur, int strength){
 
         //종료 조건 : 마지막 칸인 경우
         if(cur == n * m){
@@ -60,41 +46,30 @@ public class Main {
             return;
         }
 
-        //부메랑 만들지 않기
-        if(shape == -1){
-            dfs(cur + 1, strength, -1);
-            dfs(cur + 1, strength, 0);
-            dfs(cur + 1, strength, 1);
-            dfs(cur + 1, strength, 2);
-            dfs(cur + 1, strength, 3);
-        }
         //부메랑 만들기
-        else{
+        int cx = cur / m;
+        int cy = cur % m;
 
-            int cx = cur / m;
-            int cy = cur % m;
-            if(!makingBoom(cx, cy, shape)) return;
+        for(int shape = 0; shape < 4; shape++){
 
-            //부메랑 만들어지는 경우
+            if(!makingBoom(cx, cy, shape)) continue;
+
 
             int add = 0;
+            
             for(int i = 0; i < 3; i++){
 
                 int nx = cx + dx[shape][i];
                 int ny = cy + dy[shape][i];
+
                 visited[nx][ny] = true;
 
                 if(i == 1) add += map[nx][ny] * 2;
                 else add += map[nx][ny];
 
-
             }
 
-            dfs(cur + 1, strength + add, -1);
-            dfs(cur + 1, strength + add, 0);
-            dfs(cur + 1, strength + add, 1);
-            dfs(cur + 1, strength + add, 2);
-            dfs(cur + 1, strength + add, 3);
+            dfs(cur + 1, strength + add);
 
             for(int i = 0; i < 3; i++){
 
@@ -102,11 +77,9 @@ public class Main {
                 int ny = cy + dy[shape][i];
                 visited[nx][ny] = false;
             }
-
-
         }
 
-
+        dfs(cur + 1, strength);
 
 
     }
