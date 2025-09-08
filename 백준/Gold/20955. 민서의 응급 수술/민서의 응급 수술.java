@@ -1,0 +1,61 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    static int n, m;
+    static int[] parents;
+    static int total;
+
+    public static void make(){
+        parents = new int[n];
+        Arrays.fill(parents, -1);
+    }
+
+    public static int find(int a){
+        if(parents[a] < 0) return a;
+        return parents[a] = find(parents[a]);
+    }
+
+    public static boolean union(int a, int b){
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if(rootA == rootB) return false;
+
+        if(parents[rootA] < parents[rootB]){
+            parents[rootA] += parents[rootB];
+            parents[rootB] = rootA;
+        }
+        else{
+            parents[rootB] += parents[rootA];
+            parents[rootA] = rootB;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        make();
+
+        while(m-- > 0){
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken())-1;
+            int b = Integer.parseInt(st.nextToken())-1;
+
+            if(!union(a, b)) total++;
+        }
+
+        for(int i = 0; i < n; i++){
+            if(parents[i] < 0) total++;
+        }
+
+        System.out.println(total-1);
+
+    }
+}
