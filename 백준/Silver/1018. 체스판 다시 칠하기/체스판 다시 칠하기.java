@@ -45,9 +45,9 @@ public class Main {
         }
 
         //black
-        int black = 0;
+        int cnt = 0;
         if(chess[0][0] == 'W'){
-            black++;
+            cnt++;
             chess[0][0] = 'B';
         }
         char pre = 'B';
@@ -58,55 +58,22 @@ public class Main {
                     if(pre != chess[i][j]){
                         if(pre == 'B') chess[i][j] = 'B';
                         else chess[i][j] = 'W';
-                        black++;
+                        cnt++;
                     }
                 }
                 else{
                     if(pre == chess[i][j]){
                         if(pre == 'B') chess[i][j] = 'W';
                         else chess[i][j] = 'B';
-                        black++;
+                        cnt++;
                     }
                     pre = chess[i][j];
                 }
             }
         }
 
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                chess[i][j] = map[sx + i][sy + j];
-            }
-        }
 
-        //white
-        int white = 0;
-        if(chess[0][0] == 'B'){
-            white++;
-            chess[0][0] = 'W';
-        }
-        pre = 'W';
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if(i == 0 && j == 0) continue;
-                if(j == 0){
-                    if(pre != chess[i][j]){
-                        if(pre == 'B') chess[i][j] = 'B';
-                        else chess[i][j] = 'W';
-                        white++;
-                    }
-                }
-                else{
-                    if(pre == chess[i][j]){
-                        if(pre == 'B') chess[i][j] = 'W';
-                        else chess[i][j] = 'B';
-                        white++;
-                    }
-                }
 
-                pre = chess[i][j];
-            }
-        }
-
-        return Math.min(black, white);
+        return Math.min(cnt, 64-cnt);
     }
 }
