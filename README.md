@@ -18,5 +18,6 @@ Including the materials preparing for the coding test
 | [0585-investments-in-2016](https://github.com/heon0945/CodingTest/tree/master/0585-investments-in-2016) |
 | [0601-human-traffic-of-stadium](https://github.com/heon0945/CodingTest/tree/master/0601-human-traffic-of-stadium) |
 | [0608-tree-node](https://github.com/heon0945/CodingTest/tree/master/0608-tree-node) |
+| [1045-customers-who-bought-all-products](https://github.com/heon0945/CodingTest/tree/master/1045-customers-who-bought-all-products) |
 | [3451-find-invalid-ip-addresses](https://github.com/heon0945/CodingTest/tree/master/3451-find-invalid-ip-addresses) |
 <!---LeetCode Topics End-->
