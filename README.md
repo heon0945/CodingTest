@@ -20,5 +20,6 @@ Including the materials preparing for the coding test
 | [0608-tree-node](https://github.com/heon0945/CodingTest/tree/master/0608-tree-node) |
 | [1045-customers-who-bought-all-products](https://github.com/heon0945/CodingTest/tree/master/1045-customers-who-bought-all-products) |
 | [1070-product-sales-analysis-iii](https://github.com/heon0945/CodingTest/tree/master/1070-product-sales-analysis-iii) |
+| [1158-market-analysis-i](https://github.com/heon0945/CodingTest/tree/master/1158-market-analysis-i) |
 | [3451-find-invalid-ip-addresses](https://github.com/heon0945/CodingTest/tree/master/3451-find-invalid-ip-addresses) |
 <!---LeetCode Topics End-->
