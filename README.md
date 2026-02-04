@@ -24,5 +24,6 @@ Including the materials preparing for the coding test
 | [1164-product-price-at-a-given-date](https://github.com/heon0945/CodingTest/tree/master/1164-product-price-at-a-given-date) |
 | [1174-immediate-food-delivery-ii](https://github.com/heon0945/CodingTest/tree/master/1174-immediate-food-delivery-ii) |
 | [1193-monthly-transactions-i](https://github.com/heon0945/CodingTest/tree/master/1193-monthly-transactions-i) |
+| [1204-last-person-to-fit-in-the-bus](https://github.com/heon0945/CodingTest/tree/master/1204-last-person-to-fit-in-the-bus) |
 | [3451-find-invalid-ip-addresses](https://github.com/heon0945/CodingTest/tree/master/3451-find-invalid-ip-addresses) |
 <!---LeetCode Topics End-->
