@@ -14,7 +14,7 @@ sevenday_tb AS
     SELECT t1.visited_on, t1.total_amount - IFNULL(t2.total_amount, 0)  AS amount
     FROM total_tb t1
     LEFT JOIN total_tb t2
-    ON t2.visited_on = DATE_ADD(t1.visited_on, INTERVAL -7 DAY)
+    ON DATEDIFF(t1.visited_on, t2.visited_on) = 7
     WHERE (SELECT MIN(visited_on) FROM total_tb) + 6 <= t1.visited_on 
 )
 
