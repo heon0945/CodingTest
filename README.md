@@ -28,5 +28,6 @@ Including the materials preparing for the coding test
 | [1321-restaurant-growth](https://github.com/heon0945/CodingTest/tree/master/1321-restaurant-growth) |
 | [1341-movie-rating](https://github.com/heon0945/CodingTest/tree/master/1341-movie-rating) |
 | [1393-capital-gainloss](https://github.com/heon0945/CodingTest/tree/master/1393-capital-gainloss) |
+| [1907-count-salary-categories](https://github.com/heon0945/CodingTest/tree/master/1907-count-salary-categories) |
 | [3451-find-invalid-ip-addresses](https://github.com/heon0945/CodingTest/tree/master/3451-find-invalid-ip-addresses) |
 <!---LeetCode Topics End-->
