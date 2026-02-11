@@ -34,4 +34,5 @@ Including the materials preparing for the coding test
 | [3421-find-students-who-improved](https://github.com/heon0945/CodingTest/tree/master/3421-find-students-who-improved) |
 | [3451-find-invalid-ip-addresses](https://github.com/heon0945/CodingTest/tree/master/3451-find-invalid-ip-addresses) |
 | [3497-analyze-subscription-conversion](https://github.com/heon0945/CodingTest/tree/master/3497-analyze-subscription-conversion) |
+| [3564-seasonal-sales-analysis](https://github.com/heon0945/CodingTest/tree/master/3564-seasonal-sales-analysis) |
 <!---LeetCode Topics End-->
