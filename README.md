@@ -22,6 +22,7 @@ Including the materials preparing for the coding test
 | [0511-game-play-analysis-i](https://github.com/heon0945/CodingTest/tree/master/0511-game-play-analysis-i) |
 | [0550-game-play-analysis-iv](https://github.com/heon0945/CodingTest/tree/master/0550-game-play-analysis-iv) |
 | [0570-managers-with-at-least-5-direct-reports](https://github.com/heon0945/CodingTest/tree/master/0570-managers-with-at-least-5-direct-reports) |
+| [0577-employee-bonus](https://github.com/heon0945/CodingTest/tree/master/0577-employee-bonus) |
 | [0585-investments-in-2016](https://github.com/heon0945/CodingTest/tree/master/0585-investments-in-2016) |
 | [0601-human-traffic-of-stadium](https://github.com/heon0945/CodingTest/tree/master/0601-human-traffic-of-stadium) |
 | [0608-tree-node](https://github.com/heon0945/CodingTest/tree/master/0608-tree-node) |
