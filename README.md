@@ -36,6 +36,7 @@ Including the materials preparing for the coding test
 | [0620-not-boring-movies](https://github.com/heon0945/CodingTest/tree/master/0620-not-boring-movies) |
 | [0627-swap-sex-of-employees](https://github.com/heon0945/CodingTest/tree/master/0627-swap-sex-of-employees) |
 | [1045-customers-who-bought-all-products](https://github.com/heon0945/CodingTest/tree/master/1045-customers-who-bought-all-products) |
+| [1050-actors-and-directors-who-cooperated-at-least-three-times](https://github.com/heon0945/CodingTest/tree/master/1050-actors-and-directors-who-cooperated-at-least-three-times) |
 | [1070-product-sales-analysis-iii](https://github.com/heon0945/CodingTest/tree/master/1070-product-sales-analysis-iii) |
 | [1158-market-analysis-i](https://github.com/heon0945/CodingTest/tree/master/1158-market-analysis-i) |
 | [1164-product-price-at-a-given-date](https://github.com/heon0945/CodingTest/tree/master/1164-product-price-at-a-given-date) |
