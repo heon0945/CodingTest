@@ -46,6 +46,7 @@ Including the materials preparing for the coding test
 | [1179-reformat-department-table](https://github.com/heon0945/CodingTest/tree/master/1179-reformat-department-table) |
 | [1193-monthly-transactions-i](https://github.com/heon0945/CodingTest/tree/master/1193-monthly-transactions-i) |
 | [1204-last-person-to-fit-in-the-bus](https://github.com/heon0945/CodingTest/tree/master/1204-last-person-to-fit-in-the-bus) |
+| [1211-queries-quality-and-percentage](https://github.com/heon0945/CodingTest/tree/master/1211-queries-quality-and-percentage) |
 | [1321-restaurant-growth](https://github.com/heon0945/CodingTest/tree/master/1321-restaurant-growth) |
 | [1341-movie-rating](https://github.com/heon0945/CodingTest/tree/master/1341-movie-rating) |
 | [1393-capital-gainloss](https://github.com/heon0945/CodingTest/tree/master/1393-capital-gainloss) |
