@@ -52,6 +52,7 @@ Including the materials preparing for the coding test
 | [1321-restaurant-growth](https://github.com/heon0945/CodingTest/tree/master/1321-restaurant-growth) |
 | [1327-list-the-products-ordered-in-a-period](https://github.com/heon0945/CodingTest/tree/master/1327-list-the-products-ordered-in-a-period) |
 | [1341-movie-rating](https://github.com/heon0945/CodingTest/tree/master/1341-movie-rating) |
+| [1378-replace-employee-id-with-the-unique-identifier](https://github.com/heon0945/CodingTest/tree/master/1378-replace-employee-id-with-the-unique-identifier) |
 | [1393-capital-gainloss](https://github.com/heon0945/CodingTest/tree/master/1393-capital-gainloss) |
 | [1907-count-salary-categories](https://github.com/heon0945/CodingTest/tree/master/1907-count-salary-categories) |
 | [1934-confirmation-rate](https://github.com/heon0945/CodingTest/tree/master/1934-confirmation-rate) |
