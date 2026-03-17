@@ -59,6 +59,7 @@ Including the materials preparing for the coding test
 | [1407-top-travellers](https://github.com/heon0945/CodingTest/tree/master/1407-top-travellers) |
 | [1484-group-sold-products-by-the-date](https://github.com/heon0945/CodingTest/tree/master/1484-group-sold-products-by-the-date) |
 | [1581-customer-who-visited-but-did-not-make-any-transactions](https://github.com/heon0945/CodingTest/tree/master/1581-customer-who-visited-but-did-not-make-any-transactions) |
+| [1587-bank-account-summary-ii](https://github.com/heon0945/CodingTest/tree/master/1587-bank-account-summary-ii) |
 | [1907-count-salary-categories](https://github.com/heon0945/CodingTest/tree/master/1907-count-salary-categories) |
 | [1934-confirmation-rate](https://github.com/heon0945/CodingTest/tree/master/1934-confirmation-rate) |
 | [3220-odd-and-even-transactions](https://github.com/heon0945/CodingTest/tree/master/3220-odd-and-even-transactions) |
